@@ -4,12 +4,11 @@ import Card from "../components/Card";
 import Book from "../components/Book";
 import Footer from "../components/Footer";
 import API from "../utils/API";
-import { Col, Row, Container } from "../components/Grid";
 import { List } from "../components/List";
 
 class Saved extends Component {
   state = {
-    books: []
+    books: [],
   };
 
   componentDidMount() {
@@ -18,37 +17,46 @@ class Saved extends Component {
 
   getSavedBooks = () => {
     API.getSavedBooks()
-      .then(res =>
+      .then((res) =>
         this.setState({
-          books: res.data
+          books: res.data,
         })
       )
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
-  handleBookDelete = id => {
-    API.deleteBook(id).then(res => this.getSavedBooks());
+  handleBookDelete = (id) => {
+    API.deleteBook(id).then((res) => this.getSavedBooks());
   };
 
   render() {
     return (
-      <Container>
-        <Row>
-          <Col size="md-12">
+      <div className="container">
+        <div className="row">
+          <div className="col-md-12">
             <Jumbotron>
               <h1 className="text-center">
-                <strong>(React) Google Books Search</strong>
+                <strong>
+                  <span style={{ color: "#4285f4" }}>S</span>
+                  <span style={{ color: "#ea4335" }}>a</span>
+                  <span style={{ color: "#fbbc05" }}>v</span>
+                  <span style={{ color: "#4285f4" }}>e</span>
+                  <span style={{ color: "#34a853" }}>d</span>
+                  <span style={{ color: "#000000" }}> Books</span>
+                </strong>
               </h1>
-              <h2 className="text-center">Search for and Save Books of Interest.</h2>
+              <h5 className="text-center">
+                Your saved books from search.
+              </h5>
             </Jumbotron>
-          </Col>
-        </Row>
-        <Row>
-          <Col size="md-12">
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-12">
             <Card title="Saved Books" icon="download">
               {this.state.books.length ? (
                 <List>
-                  {this.state.books.map(book => (
+                  {this.state.books.map((book) => (
                     <Book
                       key={book._id}
                       title={book.title}
@@ -72,10 +80,10 @@ class Saved extends Component {
                 <h2 className="text-center">No Saved Books</h2>
               )}
             </Card>
-          </Col>
-        </Row>
+          </div>
+        </div>
         <Footer />
-      </Container>
+      </div>
     );
   }
 }
